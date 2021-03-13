@@ -1,7 +1,7 @@
 ﻿using ManagementApp.Model;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ManagementApp.Interface
@@ -10,5 +10,7 @@ namespace ManagementApp.Interface
     {
         Task<Ticket> GetbyIdAsync(int id);
         Task<IReadOnlyList<Ticket>> ListAllAsync();
+        Task<Ticket> AddTicket(int colId, String title, string description);
+        Task<Ticket> EditTicket(int ticketId, String title);
     }
 }

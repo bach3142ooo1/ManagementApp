@@ -28,5 +28,17 @@ namespace ManagementApp.Controllers
         {
             return await ticketRepository.GetbyIdAsync(id);
         }
+
+        [HttpPost("Add/colId={colId},title='{title}',description='{description}'")]
+        public async Task<Ticket> AddTicket(int colId, string title, string description)
+        {
+            return await ticketRepository.AddTicket(colId, title, description);
+        }
+
+        [HttpPut("Edit/ticketId={ticketId},title='{title}'")]
+        public async Task<Ticket> EditTicket(int ticketId, string title)
+        {
+            return await ticketRepository.EditTicket(ticketId, title);
+        }
     }
 }

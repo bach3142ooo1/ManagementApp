@@ -43,6 +43,13 @@ namespace ManagementApp
                 });
             services.AddScoped<IBoardRepository<Board>, BoardRepository<Board>>();
             services.AddScoped<ITicketRepository<Ticket>, TicketRepository<Ticket>>();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200/");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +65,8 @@ namespace ManagementApp
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(s => s.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); ;
 
             app.UseAuthorization();
 
