@@ -35,10 +35,23 @@ namespace ManagementApp.Controllers
             return await ticketRepository.AddTicket(colId, title, description);
         }
 
-        [HttpPut("Edit/ticketId={ticketId},title='{title}'")]
+        [HttpPut("Edit/ticketId={ticketId},title='{title}'") ]
         public async Task<Ticket> EditTicket(int ticketId, string title)
         {
             return await ticketRepository.EditTicket(ticketId, title);
         }
+
+        [HttpPut("Edit/ticketId={ticketId},description='{description}'")]
+        public async Task<Ticket> EditTicketDescription(int ticketId, string description)
+        {
+            return await ticketRepository.EditTicketDescription(ticketId, description);
+        }
+
+        [HttpDelete("Delete/ticketId={ticketId}")]
+        public void DeleteTicket(int ticketId)
+        {
+            ticketRepository.DeleteTicket(ticketId);
+        }
+
     }
 }

@@ -43,6 +43,7 @@ namespace ManagementApp
                 });
             services.AddScoped<IBoardRepository<Board>, BoardRepository<Board>>();
             services.AddScoped<ITicketRepository<Ticket>, TicketRepository<Ticket>>();
+            services.AddScoped<ITaskRepository<Model.Task>, TaskRepository<Model.Task>>();
             services.AddCors(opt =>
             {
                 opt.AddPolicy("CorsPolicy", policy =>

@@ -34,12 +34,12 @@ namespace ManagementApp.DataAccess.Repository
         public async Task<Ticket> AddTicket(int colId, string title, string description)
         {
             context.Tickets.Add(new Ticket()
-           {
+            {
                 ColumnId = colId,
                 Title = title,
                 Description = description
             });
-           context.SaveChanges();
+            await context.SaveChangesAsync();
             return await context.Tickets
                 .Where<Ticket>(x=> x.ColumnId==colId)
                 .Where<Ticket>(x => x.Title == title)
@@ -53,7 +53,28 @@ namespace ManagementApp.DataAccess.Repository
             if(result != null)
             {
                 result.Title = title;
+                await context.SaveChangesAsync();
+            }
+            return await context.Tickets.SingleOrDefaultAsync(x => x.TicketId == ticketId);
+        }
+
+        public void DeleteTicket(int ticketId)
+        {
+            var result = context.Tickets.SingleOrDefault(x => x.TicketId == ticketId);
+            if(result != null)
+            {
+                context.Tickets.Remove(result);
                 context.SaveChanges();
+            }
+        }
+
+        public async Task<Ticket> EditTicketDescription(int ticketId, string description)
+        {
+            var result = context.Tickets.SingleOrDefault(x => x.TicketId == ticketId);
+            if (result != null)
+            {
+                result.Description = description;
+                await context.SaveChangesAsync();
             }
             return await context.Tickets.SingleOrDefaultAsync(x => x.TicketId == ticketId);
         }
